@@ -32,12 +32,8 @@ def normalise_values(values):
 
 def generate_colour(statistic_value):
     #TODO:  MAPPING FROM NORMALISED NUMBERS TO HEXADECIMAL COLOURS
-    return_colour = "green"
-    if statistic_value > 0.2:
-        return_colour = "red"
-    if 0.2 > statistic_value > 0.01:
-        return_colour = "blue"
-    return 'rgb(0,'+str(255*(1-statistic_value))+', ' + str(255*statistic_value)+')'
+    #return 'rgb(0,'+str(255*(1-statistic_value))+', ' + str(255*statistic_value)+')'
+    return (0, 255*(1-statistic_value), 255*statistic_value)
 
 def gather_statistic(statistic_values, geojson):
     nuts_code = geojson.properties["NUTS312CD"]
