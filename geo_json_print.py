@@ -27,8 +27,8 @@ def normalise_gva_values(nut_gva_values):
     return nut_gva_values
 
 def map_value_to_colour(value):
-    #TODO: NORMALISE THE NUMBERS AND BIN THE VALUES TO THEN ASSIGN COLOURS BASED OFF BIN VALUES
-
+    #TODO:  MAPPING FROM NORMALISED NUMBERS TO HEXADECIMAL COLOURS
+    print()
     if value > 0.7:
         return "red"
     if value > 0.4:
