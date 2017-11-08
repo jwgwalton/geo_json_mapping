@@ -32,9 +32,10 @@ def normalise_values(values):
 
 def generate_colour(statistic_value):
     #TODO:  MAPPING FROM NORMALISED NUMBERS TO HEXADECIMAL COLOURS
-    print('statistic_value', statistic_value)
+    colour_value = 255*statistic_value*10
+    print('colour_value', colour_value)
     #return 'rgb(0,'+str(255*(1-statistic_value))+', ' + str(255*statistic_value)+')'
-    return 'rgb(0,0, ' + str(255*statistic_value)+')'
+    return 'rgb(0,0, ' + str(colour_value)+')'
     #return (0, 255*(1-statistic_value), 255*statistic_value)
 
 def gather_statistic(statistic_values, geojson):
