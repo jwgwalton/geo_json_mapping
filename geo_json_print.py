@@ -33,7 +33,8 @@ def normalise_values(values):
 def generate_colour(statistic_value):
     #TODO:  MAPPING FROM NORMALISED NUMBERS TO HEXADECIMAL COLOURS
     print('statistic_value', statistic_value)
-    return 'rgb(0,'+str(255*(1-statistic_value))+', ' + str(255*statistic_value)+')'
+    #return 'rgb(0,'+str(255*(1-statistic_value))+', ' + str(255*statistic_value)+')'
+    return 'rgb(0,0, ' + str(255*statistic_value)+')'
     #return (0, 255*(1-statistic_value), 255*statistic_value)
 
 def gather_statistic(statistic_values, geojson):
@@ -54,7 +55,7 @@ normalised_values = normalise_values(cp.copy(unnormalised_values))
 for feature in geo_json_data.features:
     normalised_value = gather_statistic(normalised_values, feature)
     unnormalised_value = gather_statistic(unnormalised_values, feature)
-    feature.properties["fill"] = generate_colour(float(unnormalised_value))
+    feature.properties["fill"] = generate_colour(float(normalised_value))
     feature.properties[STATISTIC_NAME] = unnormalised_value
 
 # SAVE FILE TO OUTPUT
