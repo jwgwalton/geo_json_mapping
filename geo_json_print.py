@@ -26,22 +26,22 @@ def normalise_gva_values(nut_gva_values):
         nut_gva_values[nut_gva_value]= (int(nut_gva_values[nut_gva_value])  - min_value)/(max_value - min_value)
     return nut_gva_values
 
-def map_value_to_colour(value):
+def map_value_to_colour(gva_value):
     #TODO:  MAPPING FROM NORMALISED NUMBERS TO HEXADECIMAL COLOURS
-    print()
-    if value > 0.7:
-        return "red"
-    if value > 0.4:
-        return 'green'
-    else:
-        return "blue"
+    return_colour = "green"
+    if gva_value > 0.2:
+        return_colour = "red"
+    if 0.2 > gva_value > 0.01:
+        return_colour = "blue"
+    print('return_colour', return_colour)
+    return return_colour
 
 def map_gva_to_colour(gva_values, geojson):
     nuts_code = geojson.properties["NUTS312CD"]
     #print('nuts_code: ', nuts_code)
     gva_value = gva_values.get(nuts_code, 0) # retrieve gva value, sensible default of 0 if not found
-    #print('gva_value: ', gva_value)
-    return map_value_to_colour(int(gva_value))
+    print('gva_value: ', gva_value)
+    return map_value_to_colour(gva_value)
 
 # open geojson file
 with open("geojson/NUTS_UK.geojson") as json_file:
@@ -53,6 +53,7 @@ gva_values = read_gva_csv("statistics/gva_values.csv")
 # update colour based off caluclated statistics
 for feature in geo_json_data.features:
     feature.properties["fill"] = map_gva_to_colour(gva_values, feature)
+    print
 
 
 # SAVE FILE TO OUTPUT
