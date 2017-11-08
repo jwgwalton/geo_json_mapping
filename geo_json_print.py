@@ -10,11 +10,18 @@ def read_gva_csv(file_location):
             gva_values[row[0]]=row[1]
     return gva_values
 
+def map_value_to_colour(value):
+    if value > 1:
+        return blue
+    else:
+        return red
+
 def map_gva_to_colour(gva_values, geojson):
     nuts_code = geojson.properties["NUTS312CD"]
     print('nuts_code: ', nuts_code)
-    print('gva_value: ', gva_values.get(nuts_code, "blue"))
-    return gva_values.get(nuts_code, "blue")
+    print('gva_value: ',gva_values.get(nuts_code, 0))
+    gva_value = gva_values.get(nuts_code, 0) # retrieve gva value
+    return map_value_to_colour(gva_value)
 
 # open geojson file
 with open("data/NUTS_UK.geojson") as json_file:
