@@ -38,11 +38,11 @@ def generate_colour(statistic_value):
     if 0.2 > statistic_value > 0.01:
         return_colour = "blue"
     print('return_colour', return_colour)
-    return return_colour
+    return (0,1-statistic_value, statistic_value)
 
-def gather_raw_statistic(values, geojson):
+def gather_statistic(statistic_values, geojson):
     nuts_code = geojson.properties["NUTS312CD"]
-    return values.get(nuts_code, 0) # retrieve gva value, sensible default of 0 if not found
+    return statistic_values.get(nuts_code, 0) # retrieve gva value, sensible default of 0 if not found
 
 
 # open geojson file
@@ -51,16 +51,13 @@ with open(NUTS_REGIONS_FILE) as json_file:
 
 # READ IN STATISTICS & NORMALISE
 unnormalised_values = read_csv(STATISTICS_FILE_LOCATION)
-#normalised_values = copy.copy(unnormalised_values)
 normalised_values = normalise_values(cp.copy(unnormalised_values))
 
 
-# update colour based off caluclated statistics
+# update colour based off statistic and append statistic as property
 for feature in geo_json_data.features:
-    normalised_value = gather_raw_statistic(normalised_values, feature)
-    unnormalised_value = gather_raw_statistic(unnormalised_values, feature)
-    print('unnormalised_value: ', unnormalised_value)
-    print('normalised_value: ', normalised_value)
+    normalised_value = gather_statistic(normalised_values, feature)
+    unnormalised_value = gather_statistic(unnormalised_values, feature)
     feature.properties["fill"] = generate_colour(normalised_value)
     feature.properties[STATISTIC_NAME] = unnormalised_value
 
