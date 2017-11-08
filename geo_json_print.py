@@ -11,28 +11,27 @@ def read_gva_csv(file_location):
     return gva_values
 
 def map_value_to_colour(value):
+    #TODO: NORMALISE THE NUMBERS AND BIN THE VALUES TO THEN ASSIGN COLOURS BASED OFF BIN VALUES
     if value > 1:
-        return blue
+        return "blue"
     else:
-        return red
+        return "red"
 
 def map_gva_to_colour(gva_values, geojson):
     nuts_code = geojson.properties["NUTS312CD"]
     print('nuts_code: ', nuts_code)
-    print('gva_value: ',gva_values.get(nuts_code, 0))
     gva_value = gva_values.get(nuts_code, 0) # retrieve gva value
-    return map_value_to_colour(gva_value)
+    print('gva_value: ', gva_value)
+    return map_value_to_colour(int(gva_value))
 
 # open geojson file
 with open("data/NUTS_UK.geojson") as json_file:
     geo_json_data = geojson.load(json_file)
 
 # READ IN STATISTICS
-# TODO: ACTUALLY PULL FROM NON STATIC FILE
 gva_values = read_gva_csv("data/gva_values.csv")
 
 # update colour based off caluclated statistics
-# TODO: ACTUALLY PULL STATISTICS AND THEN MAP TO A COLOUR
 for feature in geo_json_data.features:
     feature.properties["fill"] = map_gva_to_colour(gva_values, feature)
 
