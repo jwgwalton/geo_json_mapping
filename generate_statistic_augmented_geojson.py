@@ -69,7 +69,7 @@ f2rgb = cm.ScalarMappable(norm=norm, cmap=cm.get_cmap('RdYlGn'))
 def f2hex(f2rgb, f):
     rgb = f2rgb.to_rgba(f)[:3]
     print('rgb: ', rgb)
-    return rgb #tuple([255*fc for fc in rgb])
+    return '#%02x%02x%02x' % tuple([int(255*fc) for fc in rgb]) #tuple([255*fc for fc in rgb])
 
 # update colour based off statistic and append statistic as property
 for feature in geo_json_data.features:
@@ -77,7 +77,7 @@ for feature in geo_json_data.features:
     unnormalised_value = gather_statistic(unnormalised_values, feature)
     colour_value = f2hex(f2rgb, normalised_value)
     print('colour_value: ', colour_value)
-    feature.properties["fill"] = "rgb"+str(colour_value)+")"
+    feature.properties["fill"] = colour_value#"rgb"+str(colour_value)+")"
     feature.properties[STATISTIC_NAME] = unnormalised_value
 
 # SAVE FILE TO OUTPUT FILE
