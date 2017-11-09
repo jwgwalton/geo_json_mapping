@@ -69,7 +69,7 @@ f2rgb = cm.ScalarMappable(norm=norm, cmap=cm.get_cmap('RdYlGn'))
 def f2hex(f2rgb, f):
     rgb = f2rgb.to_rgba(f)[:3]
     print('rgb: ', rgb)
-    return tuple([255*fc for fc in rgb])
+    return rgb #tuple([255*fc for fc in rgb])
 
 # update colour based off statistic and append statistic as property
 for feature in geo_json_data.features:
