@@ -77,7 +77,7 @@ for feature in geo_json_data.features:
     unnormalised_value = gather_statistic(unnormalised_values, feature)
     colour_value = f2hex(f2rgb, normalised_value)
     print('colour_value: ', colour_value)
-    feature.properties["fill"] = colour_value
+    feature.properties["fill"] = "rgb"+str(colour_value)+")"
     feature.properties[STATISTIC_NAME] = unnormalised_value
 
 # SAVE FILE TO OUTPUT FILE
