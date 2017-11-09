@@ -9,6 +9,8 @@ STATISTICS_FILE_LOCATION = "statistics/nuts3_gva_values.csv"
 NUTS_REGIONS_FILE = "geojson/NUTS3_UK.geojson"
 OUTPUT_NUTS_REGIONS_WITH_STATS = 'geojson/NUTS3_UK_GVA.geojson'
 STATISTIC_NAME = 'GVA in Millions'
+MATPLOTLIB_COLOUR_MAP_TYPE = 'viridis'
+NUTS_REGION_PROPERTY = "NUTS312CD"
 
 def read_csv(file_location):
     statistical_values = {}
@@ -28,7 +30,7 @@ def normalise_values(values):
 
 
 def gather_statistic(statistic_values, geojson):
-    nuts_code = geojson.properties["NUTS312CD"]
+    nuts_code = geojson.properties[NUTS_REGION_PROPERTY]
     return statistic_values.get(nuts_code, 0) # retrieve gva value, sensible default of 0 if not found
 
 
@@ -40,10 +42,11 @@ with open(NUTS_REGIONS_FILE) as json_file:
 unnormalised_values = read_csv(STATISTICS_FILE_LOCATION)
 normalised_values = normalise_values(cp.copy(unnormalised_values))
 
+#COLOUR MAPPER
 normalised_max =1
 normalised_min = 0
 norm = colors.Normalize(vmin=normalised_min, vmax=normalised_max)
-rgb_colour_mapper = cm.ScalarMappable(norm=norm, cmap=cm.get_cmap('RdYlGn'))
+rgb_colour_mapper = cm.ScalarMappable(norm=norm, cmap=cm.get_cmap(MATPLOTLIB_COLOUR_MAP_TYPE))
 
 def generate_hex_colour(colour_mapper, value):
     rgb = colour_mapper.to_rgba(value)[:3]
