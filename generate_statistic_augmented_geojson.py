@@ -5,12 +5,16 @@ import matplotlib.cm as cm
 import matplotlib.colors as colors
 import copy as cp
 
-STATISTICS_FILE_LOCATION = "statistics/nuts3_gva_values.csv"
-NUTS_REGIONS_FILE = "geojson/NUTS3_UK.geojson"
-OUTPUT_NUTS_REGIONS_WITH_STATS = 'geojson/NUTS3_UK_GVA.geojson'
+STATISTICS_FOLDER = "statistics/"
+GEOJSON_FOLDER = "geojson/"
+
+STATISTICS_FILE_LOCATION = STATISTICS_FOLDER+"nuts1_gva_values.csv"
+NUTS_REGIONS_FILE = GEOJSON_FOLDER+"NUTS1_EU.geojson"
+OUTPUT_NUTS_REGIONS_WITH_STATS = GEOJSON_FOLDER+'NUTS1_EU_GVA.geojson'
+
 STATISTIC_NAME = 'GVA in Millions'
 MATPLOTLIB_COLOUR_MAP_TYPE = 'inferno'
-NUTS_REGION_PROPERTY = "NUTS312CD"
+
 
 def read_csv(file_location):
     statistical_values = {}
@@ -30,7 +34,7 @@ def normalise_values(values):
 
 
 def gather_statistic(statistic_values, geojson):
-    nuts_code = geojson.properties[NUTS_REGION_PROPERTY]
+    nuts_code = geojson.properties["NUTS_ID"]
     return statistic_values.get(nuts_code, 0) # retrieve gva value, sensible default of 0 if not found
 
 
