@@ -1,4 +1,4 @@
-from mapper import GeoJsonMapper
+from geojson_mapper import GeoJsonMapper
 
 STATISTICS_FOLDER = "statistics/"
 GEOJSON_FOLDER = "geojson/"
@@ -9,7 +9,9 @@ OUTPUT_NUTS_REGIONS_WITH_STATS = GEOJSON_FOLDER+'MODELLED_NUTS1_EU_GVA_with_mapp
 
 STATISTIC_NAME = 'GVA in Thousands'
 
-mapper = GeoJsonMapper(NUTS_REGIONS_FILE, STATISTICS_FILE_LOCATION, STATISTIC_NAME)
+REGION_TYPE = "NUTS_ID"
+
+mapper = GeoJsonMapper(NUTS_REGIONS_FILE, STATISTICS_FILE_LOCATION, STATISTIC_NAME, REGION_TYPE)
 
 mapper.label_geojson()
 
