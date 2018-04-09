@@ -11,8 +11,8 @@ STATISTIC_NAME = 'GVA in Thousands'
 
 REGION_TYPE = "NUTS_ID"
 
-mapper = GeoJsonMapper(NUTS_REGIONS_FILE, STATISTICS_FILE_LOCATION, STATISTIC_NAME, REGION_TYPE)
+mapper = GeoJsonMapper(STATISTIC_NAME)
 
-mapper.label_geojson()
+mapper.label_geojson(NUTS_REGIONS_FILE, STATISTICS_FILE_LOCATION, region_identifier=REGION_TYPE)
 
 mapper.print_geo_json(OUTPUT_NUTS_REGIONS_WITH_STATS)
