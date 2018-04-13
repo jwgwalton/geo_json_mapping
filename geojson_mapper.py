@@ -50,7 +50,7 @@ class GeoJsonMapper:
         feature.properties[self.label_name] = unnormalised_value
 
     def print_geo_json(self, output_file_path):
-        with open(output_file_path, 'w') as output_json_file:
+        with open(output_file_path, 'w+') as output_json_file:
             json.dump(self.geojson, output_json_file)
 
 
